@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +19,11 @@ class Customer extends Model
     public function orders()
     {
         return $this->hasMany('App\Models\Order')->orderBy('created_at', 'desc');
+    }
+
+    public function laundry()
+    {
+        return $this->belongsTo('App\\Models\\Laundry', 'laundry_id');
     }
 
     public function invoices()

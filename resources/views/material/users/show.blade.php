@@ -56,6 +56,8 @@
                                         <h6 class="text-center mb-0">Customers</h6>
                                         <hr class="horizontal dark my-2">
                                         <h5 class="mb-0">{{ $user->customers_count }}</h5>
+                                        <a href="{{ url('customers?laundry_id=' . ($user->laundries->first()->id ?? '')) }}"
+                                            class="btn btn-outline-primary btn-sm mt-2">View All</a>
                                     </div>
                                 </div>
                             </div>

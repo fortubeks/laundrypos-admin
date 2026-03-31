@@ -15,6 +15,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('orders', OrderController::class);
+    Route::resource('customers', \App\Http\Controllers\CustomerController::class);
     Route::get('contact-submissions', [ContactSubmissionController::class, 'index'])->name('contact-submissions.index');
     Route::get('user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
     Route::get('user/search', [UserController::class, 'search'])->name('user.search');

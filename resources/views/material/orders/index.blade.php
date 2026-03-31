@@ -83,11 +83,16 @@
                                                     {{ $order->status }}</p>
                                             </td>
                                             <td class="align-middle text-center">
+                                                <a href="{{ route('orders.show', $order->id) }}"
+                                                    class="text-primary font-weight-bold text-xs me-2" data-toggle="tooltip"
+                                                    data-original-title="View order">
+                                                    <i class="fas fa-receipt"></i> View Order
+                                                </a>
                                                 @if ($owner)
                                                     <a href="{{ route('users.show', $owner->id) }}"
                                                         class="text-secondary font-weight-bold text-xs"
                                                         data-toggle="tooltip" data-original-title="View user">
-                                                        <i class="fas fa-eye"></i>
+                                                        <i class="fas fa-user"></i>
                                                     </a>
                                                 @endif
                                             </td>

@@ -77,6 +77,20 @@ class User extends Authenticatable
         });
     }
 
+    /**
+     * Get the average number of orders per month for this user.
+     */
+    public function getAverageOrdersPerMonth(): int
+    {
+        $firstOrderDate = $this->orders()->oldest('orders.created_at')->value('orders.created_at');
+        if (! $firstOrderDate) {
+            return 0;
+        }
+        $monthsSinceFirstOrder = \Carbon\Carbon::parse($firstOrderDate)->diffInMonths(now()) ?: 1;
+        $ordersCount           = $this->orders_count ?? $this->orders()->count();
+        return (int) round($ordersCount / $monthsSinceFirstOrder);
+    }
+
     public function getStatusAttribute()
     {
         if ($this->email_verified_at === null) {

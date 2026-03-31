@@ -23,4 +23,18 @@ class OrderController extends Controller
 
         return view('material.orders.index', compact('orders', 'title'));
     }
+    /**
+     * Display the specified order.
+     */
+    public function show($id)
+    {
+        $order                 = Order::with(['laundry.owner.appSetting', 'customer'])->findOrFail($id);
+        $user                  = $order->laundry ? $order->laundry->owner : null;
+        $ltv                   = $user ? $user->getTotalRevenueFromUser() : 0;
+        $averageOrdersPerMonth = $user ? $user->getAverageOrdersPerMonth() : 0;
+        $totalOrdersAmount     = $user ? $user->orders()->sum('total_amount') : 0;
+        $latestOrder           = $user ? $user->orders()->latest('orders.created_at')->first() : null;
+        $lastFiveOrders        = $user ? $user->orders()->latest('orders.created_at')->take(5)->get() : collect();
+        return view('material.orders.show', compact('order', 'user', 'ltv', 'averageOrdersPerMonth', 'totalOrdersAmount', 'latestOrder', 'lastFiveOrders'));
+    }
 }
