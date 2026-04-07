@@ -47,7 +47,7 @@ class AuthenticatedSessionController extends Controller
     private function canAccessPortal(User $user): bool
     {
         if (Schema::hasColumn('users', 'role')) {
-            return in_array((string) $user->role, ['Super Admin', 'Admin'], true);
+            return in_array((string) $user->role, ['Back Office'], true);
         }
 
         $rawEmails     = (string) env('ADMIN_PORTAL_EMAIL', 'admin@mylaundrypos.com');
