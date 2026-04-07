@@ -28,7 +28,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order                 = Order::with(['laundry.owner.appSetting', 'customer'])->findOrFail($id);
+        $order                 = Order::with(['laundry.owner.appSetting', 'customer', 'items.serviceItem', 'payments'])->findOrFail($id);
         $user                  = $order->laundry ? $order->laundry->owner : null;
         $ltv                   = $user ? $user->getTotalRevenueFromUser() : 0;
         $averageOrdersPerMonth = $user ? $user->getAverageOrdersPerMonth() : 0;

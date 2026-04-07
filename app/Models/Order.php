@@ -20,8 +20,28 @@ class Order extends Model
         return $this->belongsTo(Laundry::class);
     }
 
+    public function items()
+    {
+        return $this->hasMany(OrderServiceItem::class, 'order_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function getUserAttribute()
     {
         return $this->laundry?->owner;
+    }
+
+    public function getOutstandingBalance()
+    {
+        return $this->total_amount - ($this->payments ? $this->payments->sum('amount') : 0);
+    }
+
+    public function getAmountPaid()
+    {
+        return $this->payments ? $this->payments->sum('amount') : 0;
     }
 }
